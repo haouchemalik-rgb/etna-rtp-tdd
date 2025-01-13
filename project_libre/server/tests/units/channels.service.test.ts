@@ -8,7 +8,6 @@ jest.mock('../../src/services/users.service', () => ({
     removeUserFromChannel: jest.fn(),
   }));
   
-  // Moquage du modèle Channels
   jest.mock('../../src/database/models/Channels', () => ({
     findAll: jest.fn(),
     findOne: jest.fn(),

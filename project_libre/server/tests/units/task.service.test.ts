@@ -19,7 +19,7 @@ describe('Task Service Tests', () => {
       ];
       Task.findAll.mockResolvedValue(tasks);
 
-      const result = await getAllTask({} as any); // Simuler une requête
+      const result = await getAllTask({} as any);
       expect(result).toEqual({ err: false, data: tasks });
     });
   });
@@ -83,7 +83,7 @@ describe('Task Service Tests', () => {
 
   describe('updateTaskById', () => {
     it('should update a task by id', async () => {
-      Task.update.mockResolvedValue([1]); // Sequelize retourne un tableau avec le nombre de lignes mises à jour
+      Task.update.mockResolvedValue([1]);
 
       const result = await updateTaskById({ params: { id: '1' }, body: { title: 'Updated Task' } } as any);
       expect(Task.update).toHaveBeenCalledWith(
