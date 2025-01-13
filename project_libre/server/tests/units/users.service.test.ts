@@ -10,7 +10,6 @@ import {
   const bcrypt = require('bcrypt');
   const jwt = require('jsonwebtoken');
   
-  // Mock des modèles Sequelize
   jest.mock('../../src/database/models/Users', () => ({
     findAll: jest.fn(),
     findOne: jest.fn(),
@@ -22,7 +21,6 @@ import {
     findOne: jest.fn(),
   }));
   
-  // Mock des bibliothèques externes
   jest.mock('bcrypt', () => ({
     compareSync: jest.fn(),
     hash: jest.fn(),
@@ -66,12 +64,12 @@ import {
   
     describe('registerUser', () => {
       it('should create a new user if username and email are unique', async () => {
-        Users.findOne.mockResolvedValueOnce(null); // For username
-        Users.findOne.mockResolvedValueOnce(null); // For email
+        Users.findOne.mockResolvedValueOnce(null);
+        Users.findOne.mockResolvedValueOnce(null);
         bcrypt.hash.mockResolvedValue('hashedPassword');
         Users.create.mockResolvedValue({ id: 1 });
   
-        const req = { body: { userName: 'NewUser', email: 'new@example.com', password: 'password' } };
+        const req = { body: { userName: 'malik', email: 'haouchemalik@gmail.com', password: 'haouchemalik@gmail.com' } };
         const result = await registerUser(req as any);
   
         expect(result).toEqual({ err: false, data: 'User created succesfully' });
@@ -80,17 +78,17 @@ import {
       it('should return an error if username already exists', async () => {
         Users.findOne.mockResolvedValueOnce({ id: 1 });
   
-        const req = { body: { userName: 'ExistingUser', email: 'new@example.com', password: 'password' } };
+        const req = { body: { userName: 'malik', email: 'haouchemalik@gmail.com', password: 'malik' } };
         const result = await registerUser(req as any);
   
         expect(result).toEqual({ err: true, data: 'This userName already exists' });
       });
   
       it('should return an error if email already exists', async () => {
-        Users.findOne.mockResolvedValueOnce(null); // For username
-        Users.findOne.mockResolvedValueOnce({ id: 1 }); // For email
+        Users.findOne.mockResolvedValueOnce(null);
+        Users.findOne.mockResolvedValueOnce({ id: 1 });
   
-        const req = { body: { userName: 'NewUser', email: 'existing@example.com', password: 'password' } };
+        const req = { body: { userName: 'malik', email: 'haouchemalik@gmail.com', password: 'malik' } };
         const result = await registerUser(req as any);
   
         expect(result).toEqual({ err: true, data: 'This email is already linked to an account' });
@@ -134,8 +132,8 @@ import {
   
     describe('updateUser', () => {
       it('should update a user if username and email are unique', async () => {
-        Users.findOne.mockResolvedValueOnce(null); // No username conflict
-        Users.findOne.mockResolvedValueOnce(null); // No email conflict
+        Users.findOne.mockResolvedValueOnce(null);
+        Users.findOne.mockResolvedValueOnce(null);
         bcrypt.hash.mockResolvedValue('newHashedPassword');
         Users.update.mockResolvedValue([1]);
   
@@ -149,7 +147,7 @@ import {
       });
   
       it('should return an error if username already exists', async () => {
-        Users.findOne.mockResolvedValueOnce({ id: 2 }); // Username conflict
+        Users.findOne.mockResolvedValueOnce({ id: 2 });
   
         const req = {
           params: { id: '1' },
