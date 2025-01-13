@@ -1,10 +1,10 @@
 import request from 'supertest';
 import express, { Application } from 'express';
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
-import UserRouter from '../src/routes/users.route';
-import SeminaryRouter from '../src/routes/seminary.route';
-import TaskRouter from '../src/routes/task.route';
-import { server } from '../src/server';
+import UserRouter from '../../src/routes/users.route';
+import SeminaryRouter from '../../src/routes/seminary.route';
+import TaskRouter from '../../src/routes/task.route';
+import { server } from '../../src/server';
 
 let app: Application;
 
